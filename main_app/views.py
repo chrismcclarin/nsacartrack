@@ -1,13 +1,14 @@
 from django.shortcuts import render
 
 from django.shortcuts import render, redirect
-from .models import Job
+from .models import Race
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login
 # from .forms import ContactsForm, JobForm
+import requests
 
 def signup(request):
     error_message = ''
@@ -24,6 +25,29 @@ def signup(request):
     return render(request, 'registration/signup.html', context)
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'base.html')
 
+def get_races(request):
+    all_races = {}
+    if 'name' in request.GET:
+        name = request.GET['name']
+        url ='@.com' 
+        response = requests.get(url)
+        data = response.json()
+        races = data['races']
+
+        for i in races:
+            race_data = Race(
+                name = i['strMeal'],
+                category = i['strCategory'],
+                instructions = i['strInstructions'],
+                region = i['strArea'],
+                slug = i['idMeal'],
+                image_url = i['strMealThumb']
+            )
+            race_data.save()
+            all_meals = Race.objects.all().order_by('-id')
+
+    return render (request, 'races.html', { "all_races": 
+    all_races} )
 
