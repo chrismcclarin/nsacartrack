@@ -17,3 +17,9 @@ class Racer(models.Model):
     name = models.CharField(max_length=100)
     position = models.CharField(max_length=100)
     date = models.DateField()
+
+class Userchoices(models.Model):
+    race = models.ForeignKey(Race, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    position = models.CharField(max_length=100)
+    date = models.DateField()

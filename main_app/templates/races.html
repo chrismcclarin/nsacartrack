@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+<div>
+    <table>
+        <tr>
+            <th>Name</th>
+            {% for race in all_races %}
+            <th>{{race.name}}</th>
+            {% endfor %}
+        </tr>
+        {% for user in all_users %}
+        <tr>
+            <td>{{user.name}}</td>
+            {% comment %} If logged in and name matches, dropdown is clickable, if not: replace with names or make the dropdown unclickable. {% endcomment %}
+            <td>
+                <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+                <div id="myDropdown" class="dropdown-content">
+                    {% for racers in all_racers %}
+                    <div>{{racers.name}}</div>
+                    {% endfor %}
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    <table>
+</div>
+
+
+
+{% endblock %}
